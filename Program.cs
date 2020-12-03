@@ -7,7 +7,12 @@ namespace hungryNinja
     {
         static void Main(string[] args)
         {
-            
+            Ninja nathan = new Ninja();
+            Buffet meal = new Buffet();
+            nathan.Eat(meal.Serve());
+            nathan.Eat(meal.Serve());
+            nathan.Eat(meal.Serve());
+
         }
     }
     class Food
@@ -48,7 +53,7 @@ namespace hungryNinja
         public Food Serve()
         {
             Random rand = new Random();
-            Food food = Menu[rand.Next(0,6)];
+            Food food = Menu[rand.Next(0,Menu.Count)];
             return food;
         }
     }
@@ -56,21 +61,47 @@ namespace hungryNinja
     class Ninja
     {
         private int calorieIntake;
-        public List<Food> FoodHistory;
+        public bool isFull{
+            get{
+                if (calorieIntake >= 1200){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+        }
+        public List<Food> FoodHistory = new List<Food>();
 
-        // add a constructor
+        public Ninja(){
+            calorieIntake = 0;
+        }
 
         // add a public "getter" property called "IsFull"
 
         // build out the Eat method
         public void Eat(Food item)
         {
+            if(!isFull){
+                this.calorieIntake+=item.Calories;
+                FoodHistory.Add(item);
+                if(item.IsSpicy && item.IsSweet){
+                    Console.WriteLine($"The Ninja ate {item.Name} which was Spicy Sweet!");
+                }
+                else if(item.IsSpicy){
+                    Console.WriteLine($"The Ninja ate {item.Name} which was Spicy!");
+                }
+                else if (item.IsSweet){
+                    Console.WriteLine($"The Ninja ate {item.Name} which was Sweet!");
+                }
+                else{
+                    Console.WriteLine($"The Ninja ate {item.Name} which was not Spicy or Sweet!");
+                }
+
+            }
+            else{
+                Console.WriteLine("WARNING! The ninja is full and cannot eat anymore!");
+            }
         }
     }
-
-
-
-
-
-
 }
