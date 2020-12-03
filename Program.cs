@@ -9,9 +9,9 @@ namespace hungryNinja
         {
             Ninja nathan = new Ninja();
             Buffet meal = new Buffet();
-            nathan.Eat(meal.Serve());
-            nathan.Eat(meal.Serve());
-            nathan.Eat(meal.Serve());
+            while (nathan.isFull == false){
+                nathan.Eat(meal.Serve());
+            }
 
         }
     }
